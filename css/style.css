@@ -35,6 +35,22 @@ button:hover {
   background-color: #45a049;
 }
 
+#canvas-container {
+  margin: 20px 0;
+  display: inline-block;
+}
+
+#static-canvas-container, #animated-canvas-container {
+  border: 2px solid #ddd;
+  display: block;
+  width: 540px;
+  height: 360px;
+}
+
+#static-canvas-container canvas, #animated-canvas-container canvas {
+  display: block !important;
+}
+
 #parameters {
   margin: 20px;
   padding: 15px;
