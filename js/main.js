@@ -18,24 +18,13 @@ function setup() {
   
   // キャンバスをDOMに追加
   setTimeout(() => {
-    let container = document.getElementById('canvas-container');
+    // アニメーションキャンバスを左側に配置
+    let animatedHolder = document.getElementById('animated-canvas-holder');
+    animatedHolder.appendChild(animatedCanvas.canvas);
     
-    // 静的キャンバスのコンテナ
-    let staticDiv = document.createElement('div');
-    staticDiv.id = 'static-canvas-container';
-    staticDiv.appendChild(staticCanvas.canvas);
-    container.appendChild(staticDiv);
-    
-    // スペーサー
-    let spacer = document.createElement('div');
-    spacer.style.height = '20px';
-    container.appendChild(spacer);
-    
-    // アニメーションキャンバスのコンテナ
-    let animatedDiv = document.createElement('div');
-    animatedDiv.id = 'animated-canvas-container';
-    animatedDiv.appendChild(animatedCanvas.canvas);
-    container.appendChild(animatedDiv);
+    // 静的キャンバスを右側に配置
+    let staticHolder = document.getElementById('static-canvas-holder');
+    staticHolder.appendChild(staticCanvas.canvas);
     
     canvasCreated = true;
   }, 100);

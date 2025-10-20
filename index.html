@@ -9,9 +9,10 @@
   </head>
   <body>
     <h1>感情表現システム</h1>
-    <div id="canvas-container"></div>
-
-    <div id="parameters">
+    <div id="main-container">
+      <div id="left-section">
+        <div id="animated-canvas-holder"></div>
+        <div id="parameters">
       <h3>パラメータ調整</h3>
       <!-- アニメーション速度 -->
       <div class="param-group">
@@ -136,6 +137,11 @@
           value="1"
         />
         <span class="value" id="mouthWidthValue">1</span>
+      </div>
+        </div>
+      </div>
+      <div id="right-section">
+        <div id="static-canvas-holder"></div>
       </div>
     </div>
 

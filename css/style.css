@@ -35,24 +35,25 @@ button:hover {
   background-color: #45a049;
 }
 
-#canvas-container {
+#main-container {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
   margin: 20px 0;
-  display: inline-block;
 }
 
-#static-canvas-container, #animated-canvas-container {
-  border: 2px solid #ddd;
-  display: block;
-  width: 540px;
-  height: 360px;
+#left-section, #right-section {
+  display: flex;
+  flex-direction: column;
 }
 
-#static-canvas-container canvas, #animated-canvas-container canvas {
+#static-canvas-holder canvas, #animated-canvas-holder canvas {
   display: block !important;
+  border: 2px solid #ddd;
 }
 
 #parameters {
-  margin: 20px;
+  margin: 20px 0;
   padding: 15px;
   background-color: white;
   border-radius: 10px;
