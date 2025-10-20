@@ -35,6 +35,28 @@ button:hover {
   background-color: #45a049;
 }
 
+#execute-button-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+#execute-button {
+  padding: 15px 40px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+#execute-button:hover {
+  background-color: #1976D2;
+  transform: scale(1.05);
+}
+
 #main-container {
   display: flex;
   gap: 40px;

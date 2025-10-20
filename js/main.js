@@ -1,6 +1,7 @@
 // 2つの独立したキャンバスを作成（シンプルなアプローチ）
 let staticCanvas, animatedCanvas;
 let canvasCreated = false;
+let staticFaceParams = null; // 右側の顔のパラメータ
 
 function setup() {
   // メインキャンバスを非表示で作成
@@ -49,16 +50,21 @@ function drawStaticFace() {
   // デフォルトのパラメータを一時的に保存
   const savedParams = { ...faceParams };
   
-  // デフォルト値を設定
-  faceParams.eyeOpenness = 1;
-  faceParams.pupilSize = 0.7;
-  faceParams.pupilAngle = 0;
-  faceParams.upperEyelidAngle = 0;
-  faceParams.upperEyelidCoverage = 0;
-  faceParams.lowerEyelidCoverage = 0;
-  faceParams.mouthCurve = 0;
-  faceParams.mouthHeight = 0;
-  faceParams.mouthWidth = 1;
+  // 使用するパラメータを決定（staticFaceParamsがあればそれを使用、なければデフォルト）
+  if (staticFaceParams) {
+    Object.assign(faceParams, staticFaceParams);
+  } else {
+    // デフォルト値を設定
+    faceParams.eyeOpenness = 1;
+    faceParams.pupilSize = 0.7;
+    faceParams.pupilAngle = 0;
+    faceParams.upperEyelidAngle = 0;
+    faceParams.upperEyelidCoverage = 0;
+    faceParams.lowerEyelidCoverage = 0;
+    faceParams.mouthCurve = 0;
+    faceParams.mouthHeight = 0;
+    faceParams.mouthWidth = 1;
+  }
   
   // 描画コンテキストを静的キャンバスに設定
   let originalCtx = setupContext(staticCanvas);
@@ -74,6 +80,12 @@ function drawStaticFace() {
   Object.assign(faceParams, savedParams);
   
   staticCanvas.pop();
+}
+
+// 実行ボタンの処理
+function executeAction() {
+  // 現在の左側のパラメータを右側の顔にコピー
+  staticFaceParams = { ...faceParams };
 }
 
 // アニメーション顔を描画
