@@ -3,6 +3,14 @@ let staticCanvas, animatedCanvas;
 let canvasCreated = false;
 let staticFaceParams = null; // 右側の顔のパラメータ
 
+// 右側の顔のアニメーション用変数
+let rightAnimationActive = false;
+let rightAnimationStartTime = null;
+let rightAnimationDuration = 1000; // デフォルト1秒
+let rightStartParams = {};
+let rightTargetParams = {};
+let rightCurrentParams = {};
+
 function setup() {
   // メインキャンバスを非表示で作成
   let mainCanvas = createCanvas(1, 1);
@@ -16,6 +24,19 @@ function setup() {
 
   // UIイベントリスナーの設定
   setupUIListeners();
+  
+  // 右側の顔の初期パラメータを設定（デフォルト値）
+  rightCurrentParams = {
+    eyeOpenness: 1,
+    pupilSize: 0.7,
+    pupilAngle: 0,
+    upperEyelidAngle: 0,
+    upperEyelidCoverage: 0,
+    lowerEyelidCoverage: 0,
+    mouthCurve: 0,
+    mouthHeight: 0,
+    mouthWidth: 1
+  };
   
   // キャンバスをDOMに追加
   setTimeout(() => {
@@ -47,24 +68,16 @@ function drawStaticFace() {
   staticCanvas.push();
   staticCanvas.translate(staticCanvas.width / 2, staticCanvas.height / 2);
   
+  // 右側のアニメーションを更新
+  if (rightAnimationActive) {
+    updateRightAnimation();
+  }
+  
   // デフォルトのパラメータを一時的に保存
   const savedParams = { ...faceParams };
   
-  // 使用するパラメータを決定（staticFaceParamsがあればそれを使用、なければデフォルト）
-  if (staticFaceParams) {
-    Object.assign(faceParams, staticFaceParams);
-  } else {
-    // デフォルト値を設定
-    faceParams.eyeOpenness = 1;
-    faceParams.pupilSize = 0.7;
-    faceParams.pupilAngle = 0;
-    faceParams.upperEyelidAngle = 0;
-    faceParams.upperEyelidCoverage = 0;
-    faceParams.lowerEyelidCoverage = 0;
-    faceParams.mouthCurve = 0;
-    faceParams.mouthHeight = 0;
-    faceParams.mouthWidth = 1;
-  }
+  // 右側の現在のパラメータを使用
+  Object.assign(faceParams, rightCurrentParams);
   
   // 描画コンテキストを静的キャンバスに設定
   let originalCtx = setupContext(staticCanvas);
@@ -82,10 +95,45 @@ function drawStaticFace() {
   staticCanvas.pop();
 }
 
+// 右側のアニメーション更新
+function updateRightAnimation() {
+  const currentTime = millis();
+  const elapsed = currentTime - rightAnimationStartTime;
+  const progress = Math.min(elapsed / rightAnimationDuration, 1);
+  
+  // イージング関数（ease-in-out）
+  const easeProgress = progress < 0.5 
+    ? 2 * progress * progress 
+    : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+  
+  // 各パラメータを補間
+  for (let key in rightTargetParams) {
+    if (rightStartParams[key] !== undefined) {
+      rightCurrentParams[key] = lerp(rightStartParams[key], rightTargetParams[key], easeProgress);
+    }
+  }
+  
+  // アニメーション終了判定
+  if (progress >= 1) {
+    rightAnimationActive = false;
+  }
+}
+
 // 実行ボタンの処理
 function executeAction() {
-  // 現在の左側のパラメータを右側の顔にコピー
-  staticFaceParams = { ...faceParams };
+  // アニメーション速度を取得
+  const speedValue = parseFloat(document.getElementById("animationSpeed").value);
+  rightAnimationDuration = speedValue * 1000; // 秒をミリ秒に変換
+  
+  // 現在の右側のパラメータを開始値として保存
+  rightStartParams = { ...rightCurrentParams };
+  
+  // 左側のパラメータを目標値として設定
+  rightTargetParams = { ...faceParams };
+  
+  // アニメーション開始
+  rightAnimationStartTime = millis();
+  rightAnimationActive = true;
 }
 
 // アニメーション顔を描画
