@@ -40,20 +40,39 @@ button:hover {
   text-align: center;
 }
 
-#execute-button {
+#execute-button-container {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+#execute-button, #reset-button {
   padding: 15px 40px;
   font-size: 18px;
   font-weight: bold;
-  background-color: #2196F3;
-  color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s;
 }
 
+#execute-button {
+  background-color: #2196F3;
+  color: white;
+}
+
 #execute-button:hover {
   background-color: #1976D2;
+  transform: scale(1.05);
+}
+
+#reset-button {
+  background-color: #FF5722;
+  color: white;
+}
+
+#reset-button:hover {
+  background-color: #E64A19;
   transform: scale(1.05);
 }
 

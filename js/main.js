@@ -136,6 +136,25 @@ function executeAction() {
   rightAnimationActive = true;
 }
 
+// リセットボタンの処理
+function resetAction() {
+  // アニメーションを停止
+  rightAnimationActive = false;
+  
+  // デフォルトパラメータに即座に戻す
+  rightCurrentParams = {
+    eyeOpenness: 1,
+    pupilSize: 0.7,
+    pupilAngle: 0,
+    upperEyelidAngle: 0,
+    upperEyelidCoverage: 0,
+    lowerEyelidCoverage: 0,
+    mouthCurve: 0,
+    mouthHeight: 0,
+    mouthWidth: 1
+  };
+}
+
 // アニメーション顔を描画
 function drawAnimatedFace() {
   animatedCanvas.background(255, 235, 250);
