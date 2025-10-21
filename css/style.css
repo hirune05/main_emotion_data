@@ -105,27 +105,29 @@ button:hover {
   padding: 12px 20px;
   font-size: 16px;
   font-weight: bold;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
+  background-color: white;
+  color: black;
+  border: 1px solid #ddd;
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .emotion-btn:hover {
-  background-color: #45a049;
+  background-color: #f5f5f5;
   transform: scale(1.05);
 }
 
 .emotion-btn.active {
-  background-color: #2196F3;
-  box-shadow: 0 0 0 3px #2196F3, 0 0 0 5px white, 0 0 0 7px #2196F3;
+  background-color: #FF8C00;
+  color: white;
+  border: 1px solid #FF8C00;
+  box-shadow: 0 0 0 3px #FF8C00, 0 0 0 5px white, 0 0 0 7px #FF8C00;
   transform: scale(1.05);
 }
 
 .emotion-btn.active:hover {
-  background-color: #1976D2;
+  background-color: #FF7F00;
 }
 
 #emotion-description {
