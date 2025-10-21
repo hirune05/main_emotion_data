@@ -156,6 +156,18 @@ button:hover {
   background-color: #ff7f00;
 }
 
+.emotion-btn.saved {
+  background-color: #9e9e9e;
+  color: white;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.emotion-btn.saved:hover {
+  background-color: #9e9e9e;
+  transform: none;
+}
+
 #emotion-description {
   margin: 0px 0 20px 0;
   padding: 15px;

@@ -3,6 +3,7 @@ let staticCanvas, animatedCanvas;
 let canvasCreated = false;
 let staticFaceParams = null; // 右側の顔のパラメータ
 let currentEmotion = 'normal'; // 現在選択されている感情
+let savedEmotions = new Set(); // 保存済みの感情を記録
 
 // 右側の顔のアニメーション用変数
 let rightAnimationActive = false;
@@ -29,6 +30,8 @@ function setup() {
   // デフォルトでニュートラルを選択
   setTimeout(() => {
     setEmotion('normal');
+    // 初期状態で保存済み感情をチェック（必要に応じて）
+    updateSavedButtonStates();
   }, 200);
   
   // 右側の顔の初期パラメータを設定（デフォルト値）
@@ -161,6 +164,43 @@ function resetAction() {
   };
 }
 
+// 次の未保存の感情に移動
+function moveToNextUnsavedEmotion() {
+  // HTMLのボタン順序と一致させる
+  const emotionOrder = ['normal', 'surprise', 'anger', 'joy', 'sleepy', 'sad'];
+  
+  // 現在の感情のインデックスを取得
+  const currentIndex = emotionOrder.indexOf(currentEmotion);
+  
+  // 次の未保存の感情を探す
+  for (let i = 1; i <= emotionOrder.length; i++) {
+    const nextIndex = (currentIndex + i) % emotionOrder.length;
+    const nextEmotion = emotionOrder[nextIndex];
+    
+    if (!savedEmotions.has(nextEmotion)) {
+      setEmotion(nextEmotion);
+      break;
+    }
+  }
+  
+  // すべて保存済みの場合
+  if (savedEmotions.size === emotionOrder.length) {
+    alert('すべての感情のデータを保存しました！');
+  }
+}
+
+// 保存済みボタンの状態を更新
+function updateSavedButtonStates() {
+  const allButtons = document.querySelectorAll('.emotion-btn');
+  allButtons.forEach(btn => {
+    const emotionName = btn.getAttribute('onclick').match(/setEmotion\('(\w+)'\)/)[1];
+    if (savedEmotions.has(emotionName)) {
+      btn.classList.add('saved');
+      btn.disabled = true;
+    }
+  });
+}
+
 // アニメーション顔を描画
 function drawAnimatedFace() {
   animatedCanvas.background(255, 235, 250);
@@ -235,6 +275,21 @@ function saveAction() {
   .then(result => {
     if (result.success) {
       alert('データを保存しました。');
+      
+      // 保存した感情を記録
+      savedEmotions.add(currentEmotion);
+      
+      // ボタンを無効化
+      const allButtons = document.querySelectorAll('.emotion-btn');
+      allButtons.forEach(btn => {
+        if (btn.getAttribute('onclick').includes(currentEmotion)) {
+          btn.classList.add('saved');
+          btn.disabled = true;
+        }
+      });
+      
+      // 次の未保存の感情に自動的に移動
+      moveToNextUnsavedEmotion();
     } else {
       alert('保存エラー: ' + result.message);
     }

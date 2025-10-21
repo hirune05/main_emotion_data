@@ -8,6 +8,11 @@ let startParams = {};
 let targetParams = {};
 
 function setEmotion(emotionName) {
+  // 保存済みの感情は選択できないようにする
+  if (window.savedEmotions && window.savedEmotions.has(emotionName)) {
+    return;
+  }
+  
   if (emotions[emotionName]) {
     // 現在の感情を更新
     currentEmotion = emotionName;
