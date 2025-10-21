@@ -2,6 +2,7 @@
 let staticCanvas, animatedCanvas;
 let canvasCreated = false;
 let staticFaceParams = null; // 右側の顔のパラメータ
+let currentEmotion = 'normal'; // 現在選択されている感情
 
 // 右側の顔のアニメーション用変数
 let rightAnimationActive = false;
@@ -183,6 +184,67 @@ function drawAnimatedFace() {
   
   animatedCanvas.pop();
 }
+
+// 保存ボタンの処理
+function saveAction() {
+  // 被験者IDを取得
+  const subjectId = document.getElementById('subject-id').value.trim();
+  
+  if (!subjectId) {
+    alert('被験者IDを入力してください。');
+    return;
+  }
+  
+  // 日本時間でタイムスタンプを生成
+  const now = new Date();
+  const jstOffset = 9 * 60; // JST is UTC+9
+  const jstTime = new Date(now.getTime() + jstOffset * 60 * 1000);
+  
+  // YYYY-MM-DD HH:MM:SS.mmm形式でフォーマット
+  const timestamp = jstTime.toISOString().replace('T', ' ').replace('Z', '');
+  
+  // アニメーション速度を取得
+  const animationDuration = document.getElementById('animationSpeed').value;
+  
+  // 保存するデータの作成
+  const data = {
+    subject_id: subjectId,
+    timestamp: timestamp,
+    emotion_label: currentEmotion,
+    animationDuration: animationDuration,
+    eyeOpenness: rightCurrentParams.eyeOpenness,
+    pupilSize: rightCurrentParams.pupilSize,
+    pupilAngle: rightCurrentParams.pupilAngle,
+    upperEyelidAngle: rightCurrentParams.upperEyelidAngle,
+    upperEyelidCoverage: rightCurrentParams.upperEyelidCoverage,
+    lowerEyelidCoverage: rightCurrentParams.lowerEyelidCoverage,
+    mouthCurve: rightCurrentParams.mouthCurve,
+    mouthHeight: rightCurrentParams.mouthHeight,
+    mouthWidth: rightCurrentParams.mouthWidth
+  };
+  
+  // サーバーにデータを送信
+  fetch('http://localhost:3000/save-emotion-data', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(result => {
+    if (result.success) {
+      alert('データを保存しました。');
+    } else {
+      alert('保存エラー: ' + result.message);
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('サーバーへの接続エラー。サーバーが起動していることを確認してください。');
+  });
+}
+
 
 // コンテキストを設定
 function setupContext(canvas) {

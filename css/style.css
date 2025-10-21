@@ -46,7 +46,7 @@ button:hover {
   justify-content: center;
 }
 
-#execute-button, #reset-button {
+#execute-button, #reset-button, #save-button {
   padding: 15px 40px;
   font-size: 18px;
   font-weight: bold;
@@ -73,6 +73,16 @@ button:hover {
 
 #reset-button:hover {
   background-color: #E64A19;
+  transform: scale(1.05);
+}
+
+#save-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#save-button:hover {
+  background-color: #45a049;
   transform: scale(1.05);
 }
 
@@ -175,4 +185,27 @@ input[type="range"] {
 .value {
   width: 50px;
   text-align: center;
+}
+
+#subject-id-container {
+  margin: 20px 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+#subject-id-container label {
+  font-weight: bold;
+  font-size: 16px;
+  width: auto;
+}
+
+#subject-id {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 200px;
 }

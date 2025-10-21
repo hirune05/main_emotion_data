@@ -9,6 +9,9 @@ let targetParams = {};
 
 function setEmotion(emotionName) {
   if (emotions[emotionName]) {
+    // 現在の感情を更新
+    currentEmotion = emotionName;
+    
     // パラメータを即座に変更（アニメーションなし）
     Object.assign(faceParams, emotions[emotionName]);
     
