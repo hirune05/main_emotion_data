@@ -3,9 +3,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px;
+  margin: 0;
+  padding: 40px;
   background-color: black;
   color: white;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 h1 {
@@ -36,48 +39,50 @@ button:hover {
 }
 
 #execute-button-container {
-  margin-top: 20px;
-  text-align: center;
-}
-
-#execute-button-container {
+  margin: 15px 0;
   display: flex;
-  gap: 15px;
+  gap: 10px;
   justify-content: center;
+  flex-wrap: nowrap;
+  max-width: 400px;
 }
 
-#execute-button, #reset-button, #save-button {
-  padding: 15px 40px;
-  font-size: 18px;
+#execute-button,
+#reset-button,
+#save-button {
+  padding: 10px 20px;
+  font-size: 16px;
   font-weight: bold;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s;
+  flex: 1 1 auto;
+  white-space: nowrap;
 }
 
 #execute-button {
-  background-color: #2196F3;
+  background-color: #2196f3;
   color: white;
 }
 
 #execute-button:hover {
-  background-color: #1976D2;
+  background-color: #1976d2;
   transform: scale(1.05);
 }
 
 #reset-button {
-  background-color: #FF5722;
+  background-color: #ff5722;
   color: white;
 }
 
 #reset-button:hover {
-  background-color: #E64A19;
+  background-color: #e64a19;
   transform: scale(1.05);
 }
 
 #save-button {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
 }
 
@@ -88,19 +93,28 @@ button:hover {
 
 #main-container {
   display: flex;
-  gap: 40px;
+  gap: 30px;
   align-items: flex-start;
   margin: 20px 0;
+  transform: scale(0.85);
+  transform-origin: center top;
 }
 
-#left-section, #right-section {
+#left-section,
+#right-section {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
-#static-canvas-holder canvas, #animated-canvas-holder canvas {
+#static-canvas-holder canvas,
+#animated-canvas-holder canvas {
   display: block !important;
   border: 2px solid #ddd;
+  width: 100%;
+  height: 100%;
+  max-width: 600px;
+  max-height: 400px;
 }
 
 #emotion-buttons {
@@ -109,11 +123,13 @@ button:hover {
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   padding: 0;
+  max-width: 400px;
+  width: 100%;
 }
 
 .emotion-btn {
-  padding: 12px 20px;
-  font-size: 16px;
+  padding: 10px 16px;
+  font-size: 14px;
   font-weight: bold;
   background-color: white;
   color: black;
@@ -129,41 +145,44 @@ button:hover {
 }
 
 .emotion-btn.active {
-  background-color: #FF8C00;
+  background-color: #ff8c00;
   color: white;
-  border: 1px solid #FF8C00;
-  box-shadow: 0 0 0 3px #FF8C00, 0 0 0 5px white, 0 0 0 7px #FF8C00;
+  border: 1px solid #ff8c00;
+  box-shadow: 0 0 0 3px #ff8c00, 0 0 0 5px white, 0 0 0 7px #ff8c00;
   transform: scale(1.05);
 }
 
 .emotion-btn.active:hover {
-  background-color: #FF7F00;
+  background-color: #ff7f00;
 }
 
 #emotion-description {
-  margin: 15px 0;
-  padding: 20px;
+  margin: 0px 0 20px 0;
+  padding: 15px;
   background-color: white;
-  border-radius: 5px;
+  border-radius: 8px;
   border: 1px solid #ddd;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.6;
   color: #333;
   min-height: 60px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  justify-content: flex-start;
+  text-align: left;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
 }
 
 #parameters {
-  margin: 20px 0;
-  padding: 15px;
+  margin: 15px 0;
+  padding: 12px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(255, 255, 255, 0.2);
   color: black;
+  max-width: 400px;
 }
 
 .param-group {
@@ -188,12 +207,14 @@ input[type="range"] {
 }
 
 #subject-id-container {
-  margin: 20px 0;
+  margin: 15px 0;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
+  max-width: 400px;
+  width: 100%;
 }
 
 #subject-id-container label {
