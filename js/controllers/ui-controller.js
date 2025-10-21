@@ -9,16 +9,36 @@ let targetParams = {};
 
 function setEmotion(emotionName) {
   if (emotions[emotionName]) {
-    // 現在のパラメータを開始値として保存
-    startParams = { ...faceParams };
+    // パラメータを即座に変更（アニメーションなし）
+    Object.assign(faceParams, emotions[emotionName]);
     
-    // 目標のパラメータを設定
-    targetParams = emotions[emotionName];
-    
-    // アニメーション開始
-    animationStartTime = millis();
-    animationActive = true;
+    // スライダーの値も更新
+    for (let key in emotions[emotionName]) {
+      if (document.getElementById(key)) {
+        document.getElementById(key).value = emotions[emotionName][key];
+        document.getElementById(key + "Value").textContent = emotions[emotionName][key].toFixed(2);
+      }
+    }
   }
+  
+  // 感情の説明を表示
+  const descriptionDiv = document.getElementById('emotion-description');
+  if (emotionDescriptions[emotionName]) {
+    descriptionDiv.textContent = emotionDescriptions[emotionName];
+  } else {
+    descriptionDiv.textContent = "感情を選択してください";
+  }
+  
+  // ボタンのアクティブ状態を更新
+  const allButtons = document.querySelectorAll('.emotion-btn');
+  allButtons.forEach(btn => btn.classList.remove('active'));
+  
+  // クリックされたボタンを探してアクティブにする
+  allButtons.forEach(btn => {
+    if (btn.getAttribute('onclick').includes(emotionName)) {
+      btn.classList.add('active');
+    }
+  });
 }
 
 // パラメータとdurationを指定してアニメーションする関数

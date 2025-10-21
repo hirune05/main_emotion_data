@@ -8,7 +8,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
   </head>
   <body>
-    <h1>感情表現システム</h1>
     <div id="main-container">
       <div id="left-section">
         <div id="animated-canvas-holder"></div>
@@ -146,6 +145,15 @@
           <button id="execute-button" onclick="executeAction()">実行</button>
           <button id="reset-button" onclick="resetAction()">リセット</button>
         </div>
+        <div id="emotion-buttons">
+          <button class="emotion-btn" onclick="setEmotion('normal')">ニュートラル</button>
+          <button class="emotion-btn" onclick="setEmotion('surprise')">驚愕</button>
+          <button class="emotion-btn" onclick="setEmotion('anger')">怒り</button>
+          <button class="emotion-btn" onclick="setEmotion('joy')">喜び</button>
+          <button class="emotion-btn" onclick="setEmotion('sleepy')">眠気</button>
+          <button class="emotion-btn" onclick="setEmotion('sad')">悲しみ</button>
+        </div>
+        <div id="emotion-description">感情を選択してください</div>
       </div>
     </div>
 

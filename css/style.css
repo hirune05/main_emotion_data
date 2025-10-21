@@ -93,6 +93,58 @@ button:hover {
   border: 2px solid #ddd;
 }
 
+#emotion-buttons {
+  margin: 20px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 0;
+}
+
+.emotion-btn {
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.emotion-btn:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+.emotion-btn.active {
+  background-color: #2196F3;
+  box-shadow: 0 0 0 3px #2196F3, 0 0 0 5px white, 0 0 0 7px #2196F3;
+  transform: scale(1.05);
+}
+
+.emotion-btn.active:hover {
+  background-color: #1976D2;
+}
+
+#emotion-description {
+  margin: 15px 0;
+  padding: 20px;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
 #parameters {
   margin: 20px 0;
   padding: 15px;

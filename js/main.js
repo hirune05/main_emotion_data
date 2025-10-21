@@ -25,6 +25,11 @@ function setup() {
   // UIイベントリスナーの設定
   setupUIListeners();
   
+  // デフォルトでニュートラルを選択
+  setTimeout(() => {
+    setEmotion('normal');
+  }, 200);
+  
   // 右側の顔の初期パラメータを設定（デフォルト値）
   rightCurrentParams = {
     eyeOpenness: 1,
