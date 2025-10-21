@@ -32,6 +32,8 @@ function setup() {
     setEmotion('normal');
     // 初期状態で保存済み感情をチェック（必要に応じて）
     updateSavedButtonStates();
+    // ユニークな被験者IDを生成
+    generateUniqueSubjectId();
   }, 200);
   
   // 右側の顔の初期パラメータを設定（デフォルト値）
@@ -199,6 +201,27 @@ function updateSavedButtonStates() {
       btn.disabled = true;
     }
   });
+}
+
+// ユニークな被験者IDを生成
+function generateUniqueSubjectId() {
+  // UUID v4を生成する関数
+  function generateUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      const r = Math.random() * 16 | 0;
+      const v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
+  
+  // UUID形式のIDを生成
+  const subjectId = generateUUID();
+  
+  // 入力フィールドに設定
+  document.getElementById('subject-id').value = subjectId;
+  
+  // 読み取り専用にする（ユーザーが変更できないように）
+  document.getElementById('subject-id').readOnly = true;
 }
 
 // アニメーション顔を描画
